@@ -1,23 +1,25 @@
 library(readr)
+library(data.table)
 listings <- read_csv("listings.csv")
 View(listings)
-
 library(dplyr)
+listings <- data.table(listings)
 
 # Assume your Airbnb data is stored in a dataframe called 'airbnb_data'
 
 # Create a new column to classify listings as short-term or long-term based on minimum nights
 listings$stay_type <- ifelse(listings$minimum_nights < 7, "Short-stay", "Long-stay")
-head(listings)
 
+# Remove non-numeric characters from price
+listings$price <- as.numeric(gsub("[^0-9.]", "", listings$price))
 
 # Summarize pricing by stay_length
-pricing_summary <- listing %>%
-  group_by(stay_length) %>%
-  summarize(mean_price = mean(price),
-            median_price = median(price),
-            min_price = min(price),
-            max_price = max(price))
+pricing_summary <- listings %>%
+  group_by(stay_type) %>%
+  summarize(mean_price = mean(price, na.rm = TRUE),
+            median_price = median(price, na.rm = TRUE),
+            min_price = min(price, na.rm = TRUE),
+            max_price = max(price, na.rm = TRUE))
 
 # Print summary statistics
 print(pricing_summary)
