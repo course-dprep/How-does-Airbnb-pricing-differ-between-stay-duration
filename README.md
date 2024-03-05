@@ -1,6 +1,6 @@
 # Airbnb data preparation
 
-Are there any noticeable differences in pricing between short-term (e.g., minimum nights < 7) and long-term (e.g., minimum nights >= 7) rental options?
+Are there any noticeable differences in pricing between short-term (e.g., minimum nights < 7) and long-term (e.g., minimum nights >= 7) rental options in Amsterdam, Tokyo and London? And how does this relationship depend on room type and review score?
 
 ## Motivation
 
