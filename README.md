@@ -36,6 +36,8 @@ Provide an overview of the directory structure and files, for example:
 
 Explain to potential users how to run/replicate your workflow. If necessary, touch upon the required input data, which secret credentials are required (and how to obtain them), which software tools are needed to run the workflow (including links to the installation instructions), and how to run the workflow.
 
+## Interpretation of results & Conclusions
+
 
 ## More resources
 
