@@ -4,7 +4,7 @@ library(data.table)
 library(dplyr)
 
 #load data
-Amsterdam_listings <- read_csv("ams_listings.csv")
+Amsterdam_listings <- read_csv("http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-12-12/data/listings.csv.gz")
 
 #Adding the short stay and long stay apartment type variable
 Amsterdam_listings$stay_type <- ifelse(Amsterdam_listings$minimum_nights < 7, "Short-stay", "Long-stay")
@@ -51,7 +51,7 @@ sum(is.na(Amsterdam_listings$room_type)) #there are no missing values for room_t
 
 
 #Doing the same process for Tokyo
-Tokyo_listings <- read_csv("tyo_listings.csv")
+Tokyo_listings <- read_csv("http://data.insideairbnb.com/japan/kant%C5%8D/tokyo/2023-12-27/data/listings.csv.gz")
 
 Tokyo_listings$stay_type <- ifelse(Tokyo_listings$minimum_nights < 7, "Short-stay", "Long-stay")
 Tokyo_listings$stay_type_dummy <- ifelse(Tokyo_listings$stay_type == "Short-stay", 1, 0)
@@ -88,7 +88,7 @@ sum(is.na(Tokyo_listings$room_type)) #there are no missing values for room_type
 
 
 #Doing the same process for London
-London_listings <- read_csv("ldn_lisitings.csv")
+London_listings <- read_csv("http://data.insideairbnb.com/united-kingdom/england/london/2023-12-10/data/listings.csv.gz")
 
 London_listings$stay_type <- ifelse(London_listings$minimum_nights < 7, "Short-stay", "Long-stay")
 London_listings$stay_type_dummy <- ifelse(London_listings$stay_type == "Short-stay", 1, 0)
