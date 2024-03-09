@@ -10,7 +10,7 @@ Tokyo_listings <- read_csv("listings_tokyo.csv")
 London_listings <- read_csv("listings_london.csv")
 
 # create a list of city datasets
-city_datasets <- list(Amsterdam = filtered_dataset_Amsterdam, Tokyo = filtered_dataset_Tokyo, London = filtered_dataset_London)
+city_datasets <- list(Amsterdam = combined_ams, Tokyo = combined_tyo, London = combined_ldn)
 
 
 # Initialize an empty dataframe to store results
@@ -41,25 +41,24 @@ print(pricing_results)
 
 
 
-# Perform ANOVA for each city
-anova_results <- list()
+# Perform Linear Regression for each city
+lr_results <- list()
 
 # Loop through each city dataset
 for (city_name in names(city_datasets)) {
   # Get the city dataset
   city_data <- city_datasets[[city_name]]
   
-  # Perform ANOVA with price as IV and stay_type as DV with moderators room_type and review_scores_rating
-  anova_result <- lm(stay_type_dummy ~ price * room_type * review_scores_rating, data = city_data) %>%
-    anova()
+  # Perform Linear Regression with price as IV and stay_type as DV with moderators room_type and review_scores_rating
+  lr_result <- lm(price ~ stay_type_dummy * room_type * review_scores_rating, data = city_data)
   
-  # Store ANOVA results in the list
-  anova_results[[city_name]] <- tidy(anova_result)
+  # Store Linear Regression results in the list
+  lr_results[[city_name]] <- tidy(lr_result)
 }
 
-# Print ANOVA results for each city
-for (city_name in names(anova_results)) {
+# Print Linear Regression results for each city
+for (city_name in names(lr_results)) {
   cat("City:", city_name, "\n")
-  print(anova_results[[city_name]])
+  print(lr_results[[city_name]])
   cat("\n")
 }
