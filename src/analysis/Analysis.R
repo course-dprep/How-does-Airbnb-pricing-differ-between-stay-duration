@@ -4,14 +4,8 @@ library(data.table)
 library(dplyr)
 library(broom)
 
-#load data
-Amsterdam_listings <- read_csv("listings.csv")
-Tokyo_listings <- read_csv("listings_tokyo.csv")
-London_listings <- read_csv("listings_london.csv")
-
 # create a list of city datasets
 city_datasets <- list(Amsterdam = combined_ams, Tokyo = combined_tyo, London = combined_ldn)
-
 
 # Initialize an empty dataframe to store results
 pricing_results <- data.frame()
@@ -62,3 +56,21 @@ for (city_name in names(lr_results)) {
   print(lr_results[[city_name]])
   cat("\n")
 }
+
+# Plot the pricing,stay_type,room_type data for each city
+library(ggplot2)
+
+plot_ams <- ggplot(combined_ams, aes(x = stay_type, y = price)) +
+  geom_point() +
+  facet_wrap(~ room_type) + ggtitle("Amsterdam")
+plot_ams
+
+plot_tyo <- ggplot(combined_tyo, aes(x = stay_type, y = price)) +
+  geom_point() +
+  facet_wrap(~ room_type) + ggtitle("Tokyo")
+plot_tyo
+
+plot_ldn <- ggplot(combined_ldn, aes(x = stay_type, y = price)) +
+  geom_point() +
+  facet_wrap(~ room_type) + ggtitle("London")
+plot_ldn
