@@ -5,12 +5,10 @@ library(dplyr)
 library(broom)
 
 #load data
-Amsterdam_listings <- read_csv("listings.csv")
-Tokyo_listings <- read_csv("listings_tokyo.csv")
-London_listings <- read_csv("listings_london.csv")
 
-# create a list of city datasets
-city_datasets <- list(Amsterdam = combined_ams, Tokyo = combined_tyo, London = combined_ldn)
+# Amsterdam_listings <- "../../data/ams_listings.csv.gz"
+# Tokyo_listings <- "../../data/tyo_listings.csv.gz"
+# London_listings <- "../../data/ldn_listings.csv.gz"
 
 
 # Initialize an empty dataframe to store results
@@ -19,7 +17,7 @@ pricing_results <- data.frame()
 # Loop through each city dataset
 for (city_name in names(city_datasets)) {
   # Get the city dataset
-  city_data <- city_datasets[[city_name]]
+  city_data <- city_datasets[[city_name]]$combined
   
   # Summarize pricing by stay_length
   pricing_summary <- city_data %>%
@@ -38,7 +36,6 @@ for (city_name in names(city_datasets)) {
 
 # Print the combined results
 print(pricing_results)
-
 
 
 # Perform Linear Regression for each city
