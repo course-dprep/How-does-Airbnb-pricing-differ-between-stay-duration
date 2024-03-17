@@ -4,7 +4,7 @@ library(data.table)
 library(dplyr)
 library(broom)
 
-#load data
+#load the data
 
 # Amsterdam_listings <- "../../data/ams_listings.csv.gz"
 # Tokyo_listings <- "../../data/tyo_listings.csv.gz"
