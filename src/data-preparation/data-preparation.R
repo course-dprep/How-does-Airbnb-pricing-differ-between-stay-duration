@@ -9,7 +9,7 @@ library(DescTools) # winsorize library
 
 #loop through each city dataset
 process_city_data <- function(city_url) {
-  # Read CSV data
+  # Read data
   city_listings <- read_csv(city_url)
   
   # Adding the short stay and long stay apartment type variable
