@@ -44,7 +44,7 @@ lr_results <- list()
 # Loop through each city dataset
 for (city_name in names(city_datasets)) {
   # Get the city dataset
-  city_data <- city_datasets[[city_name]]
+  city_data <- city_datasets[[city_name]]$combined
   
   # Perform Linear Regression with price as IV and stay_type as DV with moderators room_type and review_scores_rating
   lr_result <- lm(price ~ stay_type_dummy * room_type * review_scores_rating, data = city_data)
