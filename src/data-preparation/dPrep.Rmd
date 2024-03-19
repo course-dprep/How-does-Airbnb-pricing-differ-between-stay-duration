@@ -25,5 +25,17 @@ Long-stay | number of nights stay for the listing (>= 7 nights) | Metric
 review_scores_rating | average review score of the listing (0-5) | Metric
 room_type | type of room (Entire home/apt, Private room, Shared room, Hotel) | Categorical
 
+```{r}
+library(tidyverse)
 
+read_csv("pricing_results.csv")
+read_csv("Amsterdam_lr_results.csv")
+read_csv("Tokyo_lr_results.csv")
+read_csv("London_lr_results.csv")
+
+knitr::include_graphics("listings_count.png")
+```
+
+```{r}
+```
 
