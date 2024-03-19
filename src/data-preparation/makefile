@@ -1,4 +1,4 @@
-Amsterdam_listings.csv.gz London_listings.csv.gz Tokyo_listings.csv.gz: 
+../../data/Amsterdam_listings.csv.gz ../../data/London_listings.csv.gz ../../Tokyo_listings.csv.gz: 
 	R --vanilla < ../src/data-preparation/download-datasets.R
 
 Amsterdam_aggregated_df.csv London_aggregated_df.csv Tokyo_aggregated_df.csv:
