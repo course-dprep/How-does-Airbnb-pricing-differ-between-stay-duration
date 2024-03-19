@@ -3,13 +3,26 @@ library(readr)
 library(data.table)
 library(dplyr)
 library(broom)
+library(tidyverse)
 
 #load the data
+##Specify path to your CSV data 
+data_path <- "../data-preparation"
 
-# Amsterdam_listings <- "../../data/ams_listings.csv.gz"
-# Tokyo_listings <- "../../data/tyo_listings.csv.gz"
-# London_listings <- "../../data/ldn_listings.csv.gz"
+##Create an empty list to store datasets
+city_datasets <- list()
 
+##Read each CSV file
+for (city in c("Amsterdam", "Tokyo", "London")) {
+  file_name <- paste0(city, "_aggregated_df.csv")
+  file_path <- paste0(data_path, "/", file_name)
+  
+  # Read CSV into a data frame
+  city_data <- read_csv(file_path)
+  
+  # Store in a list along with the city name 
+  city_datasets[[city]] <- list(combined = city_data) 
+}
 
 # Initialize an empty dataframe to store results
 pricing_results <- data.frame()
@@ -44,7 +57,7 @@ lr_results <- list()
 # Loop through each city dataset
 for (city_name in names(city_datasets)) {
   # Get the city dataset
-  city_data <- city_datasets[[city_name]]
+  city_data <- city_datasets[[city_name]]$combined
   
   # Perform Linear Regression with price as IV and stay_type as DV with moderators room_type and review_scores_rating
   lr_result <- lm(price ~ stay_type_dummy * room_type * review_scores_rating, data = city_data)
@@ -59,3 +72,9 @@ for (city_name in names(lr_results)) {
   print(lr_results[[city_name]])
   cat("\n")
 }
+
+# Save processed data
+write_csv(pricing_results, "pricing_results.csv")
+write_csv(lr_results$Amsterdam, "Amsterdam_lr_results.csv")
+write_csv(lr_results$Tokyo, "Tokyo_lr_results.csv")
+write_csv(lr_results$London, "London_lr_results.csv")

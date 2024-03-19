@@ -1,11 +1,20 @@
 #install packages
-install.packages("DescTools")
+#install.packages("DescTools") # should be moved to a different file
 
 #load libraries
+library(ggplot2)
+library(tidyverse) 
 library(readr)
 library(data.table)
 library(dplyr)
 library(DescTools) # winsorize library
+
+# List of city URLs
+city_urls <- c(
+  "../../data/Amsterdam_listings.csv.gz",
+  "../../data/Tokyo_listings.csv.gz",
+  "../../data/London_listings.csv.gz"
+)
 
 #loop through each city dataset
 process_city_data <- function(city_url) {
@@ -38,6 +47,12 @@ process_city_data <- function(city_url) {
   outliers <- filtered_dataset$price[filtered_dataset$price > upper_bound | filtered_dataset$price < lower_bound]
   percentage_outliers <- length(outliers) / length(filtered_dataset$price) * 100
   
+  ##Winsorize price column with specified percentiles (function)
+  winsorize_price <- function(data, lower = 0.05, upper = 0.95) { 
+    data$price <- with(data, pmin(pmax(price, quantile(price, lower)), quantile(price, upper)))
+    return(data)
+  }
+  
   # Winsorize prices by property type (0.05-0.95 percentiles)
   filtered_by_pt <- split(filtered_dataset, filtered_dataset$property_type)
   winsorized_prices <- lapply(filtered_by_pt, winsorize_price)
@@ -47,16 +62,34 @@ process_city_data <- function(city_url) {
   return(list(filtered_dataset = filtered_dataset, outliers = outliers, percentage_outliers = percentage_outliers, combined = combined))
 }
 
-# List of city URLs
-city_urls <- c(
-  "http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-12-12/data/listings.csv.gz",
-  "http://data.insideairbnb.com/japan/kant%C5%8D/tokyo/2023-12-27/data/listings.csv.gz",
-  "http://data.insideairbnb.com/united-kingdom/england/london/2023-12-10/data/listings.csv.gz"
-)
-
 # Process data for each city
 city_datasets <- lapply(city_urls, process_city_data)
 
 # Access processed data for each city
-
 names(city_datasets) <- c("Amsterdam", "Tokyo", "London")
+amsterdam_data <- city_datasets$Amsterdam
+tokyo_data <- city_datasets$Tokyo
+london_data <- city_datasets$London
+
+# Add loop to save each city's data
+for (city_name in names(city_datasets)) {
+  filename <- paste0(city_name, "_aggregated_df.csv") # Construct filename
+  write_csv(city_datasets[[city_name]]$combined, filename)  # Write 'combined' data
+}
+
+# create listing_count dataframe
+listings_count <- data.frame(city = c("Amsterdam", "Tokyo", "London"), count = c(nrow(amsterdam_data$combined), nrow(tokyo_data$combined), nrow(london_data$combined)))
+
+# bar chart for the total number of listings in each city
+ggplot(listings_count, aes(x = reorder(city, -count), y = count, fill = city)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = count), vjust = -0.3, size = 3.5) +
+  labs(title = "Total number of listings in each city", x = "City", y = "Number of listings") +
+  scale_fill_manual(values = c("Amsterdam" = "lightblue3", "Tokyo" = "forestgreen", "London" = "deepskyblue4")) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+#save the bar chart
+ggsave("listings_count.png", plot = last_plot(), device = "png", width = 10, height = 6, units = "in", dpi = 300)
+
+
