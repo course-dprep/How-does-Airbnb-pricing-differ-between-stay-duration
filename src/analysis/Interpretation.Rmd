@@ -1,0 +1,287 @@
+---
+title: "Interpretation"
+output: pdf_document
+date: "2024-03-13"
+---
+
+```{r data-preparation, include = FALSE}
+
+#load libraries
+library(readr)
+library(data.table)
+library(dplyr)
+library(DescTools)
+library(broom)
+library(ggplot2)
+
+#load data
+Amsterdam_listings <- read_csv("http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-12-12/data/listings.csv.gz")
+
+#Adding the short stay and long stay apartment type variable
+Amsterdam_listings$stay_type <- ifelse(Amsterdam_listings$minimum_nights < 7, "Short-stay", "Long-stay")
+#Adding a dummy variable for the stay type
+Amsterdam_listings$stay_type_dummy <- ifelse(Amsterdam_listings$stay_type == "Short-stay", 1, 0)
+
+#Remove inconvenient symbols from the data
+Amsterdam_listings$price <- as.numeric(gsub("[^0-9.]", "", Amsterdam_listings$price))
+
+#Check for missing values 
+sum(is.na(Amsterdam_listings$minimum_nights)) #there are no missing values for minimum_nights
+sum(is.na(Amsterdam_listings$price)) #there are 296 missing prices which is 3,4% of the data
+sum(is.na(Amsterdam_listings$property_type)) #there are no missing values for property_type
+sum(is.na(Amsterdam_listings$room_type)) #there are no missing values for room_type
+
+#filter dataset for only the variables we need and remove all the listings (rows) that doesnt have a price (NA, missing value)
+filtered_dataset_Amsterdam <- Amsterdam_listings %>% select(id, listing_url, neighbourhood, property_type, room_type, price, minimum_nights, stay_type, stay_type_dummy, number_of_reviews, review_scores_rating, review_scores_accuracy, review_scores_cleanliness, review_scores_communication, review_scores_location, review_scores_value) %>% filter(!is.na(price)) %>% filter(number_of_reviews > 0)
+                                       
+#check for duplicates
+sum(duplicated(filtered_dataset_Amsterdam)) #there are no duplicates in the dataset
+
+#Check the data for extreme outliers of price
+summary(filtered_dataset_Amsterdam$price) #there are some extreme outliers in the price variable
+boxplot(filtered_dataset_Amsterdam$price, main="Boxplot of Price") #insight in the outliers
+
+Q1 <- quantile(filtered_dataset_Amsterdam$price, 0.25, na.rm = TRUE) #Checking outliers by using the interquartile range method
+Q3 <- quantile(filtered_dataset_Amsterdam$price, 0.75, na.rm = TRUE)
+IQR <- Q3 - Q1
+
+upper_bound <- Q3 + 1.5 * IQR
+lower_bound <- Q1 - 1.5 * IQR
+outliers <- filtered_dataset_Amsterdam$price[filtered_dataset_Amsterdam$price > upper_bound | filtered_dataset_Amsterdam$price < lower_bound]
+outliers
+percentage_outliers <- length(outliers) / length(filtered_dataset_Amsterdam$price) * 100
+percentage_outliers #4.2 percent of the prices lies outside the bounds
+
+#Winsorize prices by property type (0.05-0.95 percentiles)
+##Filter data by property type
+filtered_by_pt_ams <- split(filtered_dataset_Amsterdam, filtered_dataset_Amsterdam$property_type) 
+##Winsorize price column with specified percentiles (function)
+winsorize_price <- function(data, lower = 0.05, upper = 0.95) { 
+  data$price <- with(data, pmin(pmax(price, quantile(price, lower)), quantile(price, upper)))
+  return(data)
+}
+##Apply the winsorize function to each property type
+winsorized_prices_ams <- lapply(filtered_by_pt_ams, winsorize_price)
+##Combine the winsorized data into one overview
+combined_ams <- do.call(rbind, winsorized_prices_ams)
+
+boxplot(combined_ams$price, main="Boxplot of Price") #insight in the outliers after winsorized prices. 
+boxplot(filtered_dataset_Amsterdam$price, main="Boxplot of Price") #insight in the outliers without winsorized prices.
+
+
+###############
+
+
+#Doing the same process for Tokyo
+Tokyo_listings <- read_csv("http://data.insideairbnb.com/japan/kant%C5%8D/tokyo/2023-12-27/data/listings.csv.gz")
+
+Tokyo_listings$stay_type <- ifelse(Tokyo_listings$minimum_nights < 7, "Short-stay", "Long-stay")
+Tokyo_listings$stay_type_dummy <- ifelse(Tokyo_listings$stay_type == "Short-stay", 1, 0)
+
+Tokyo_listings$price <- as.numeric(gsub("[^0-9.]", "", Tokyo_listings$price))
+
+sum(is.na(Tokyo_listings$minimum_nights)) #there are no missing values for minimum_nights
+sum(is.na(Tokyo_listings$price)) #there are 413 missing prices
+sum(is.na(Tokyo_listings$property_type)) #there are no missing values for property_type
+sum(is.na(Tokyo_listings$room_type)) #there are no missing values for room_type
+
+filtered_dataset_Tokyo <- Tokyo_listings %>% select(id, listing_url, neighbourhood, property_type, room_type, price, minimum_nights, stay_type, stay_type_dummy, number_of_reviews, review_scores_rating, review_scores_accuracy, review_scores_cleanliness, review_scores_communication, review_scores_location, review_scores_value) %>% filter(!is.na(price)) %>% filter(number_of_reviews > 0)
+sum(is.na(filtered_dataset_Tokyo$price)) #no missing value for prices anymore
+
+sum(duplicated(filtered_dataset_Tokyo)) #there are no duplicates in the dataset
+
+summary(filtered_dataset_Tokyo$price) #there are some extreme outliers in the price variable
+boxplot(filtered_dataset_Tokyo$price, main="Boxplot of Price") #insight in the outliers
+
+Q1 <- quantile(filtered_dataset_Tokyo$price, 0.25, na.rm = TRUE) #Checking outliers by using the interquartile range method
+Q3 <- quantile(filtered_dataset_Tokyo$price, 0.75, na.rm = TRUE)
+IQR <- Q3 - Q1
+
+upper_bound <- Q3 + 1.5 * IQR
+lower_bound <- Q1 - 1.5 * IQR
+outliers <- filtered_dataset_Tokyo$price[filtered_dataset_Tokyo$price > upper_bound | filtered_dataset_Tokyo$price < lower_bound]
+outliers
+percentage_outliers <- length(outliers) / length(filtered_dataset_Tokyo$price) * 100
+percentage_outliers #6.9 percent of the prices lies outside the bounds
+
+#Winsorize prices by property type (0.05-0.95 percentiles)
+##Filter data by property type
+filtered_by_pt_tyo <- split(filtered_dataset_Tokyo, filtered_dataset_Tokyo$property_type) 
+
+##Apply the winsorize function to each property type
+winsorized_prices_tyo <- lapply(filtered_by_pt_tyo, winsorize_price) #winsorize_price() function is already defined in the Amsterdam section. so re-use.
+##Combine the winsorized data into one overview
+combined_tyo <- do.call(rbind, winsorized_prices_tyo)
+
+boxplot(combined_tyo$price, main="Boxplot of Price") #insight in the outliers after winsorized prices. 
+boxplot(filtered_dataset_Tokyo$price, main="Boxplot of Price") #insight in the outliers without winsorized prices.
+
+
+
+###############
+
+
+
+#Doing the same process for London
+London_listings <- read_csv("http://data.insideairbnb.com/united-kingdom/england/london/2023-12-10/data/listings.csv.gz")
+
+London_listings$stay_type <- ifelse(London_listings$minimum_nights < 7, "Short-stay", "Long-stay")
+London_listings$stay_type_dummy <- ifelse(London_listings$stay_type == "Short-stay", 1, 0)
+
+London_listings$price <- as.numeric(gsub("[^0-9.]", "", London_listings$price))
+
+sum(is.na(London_listings$minimum_nights)) #there are no missing values for minimum_nights
+sum(is.na(London_listings$price)) #there are 4180 missing prices
+sum(is.na(London_listings$property_type)) #there are no missing values for property_type
+sum(is.na(London_listings$room_type)) #there are no missing values for room_type
+
+filtered_dataset_London <- London_listings %>% select(id, listing_url, neighbourhood, property_type, room_type, price, minimum_nights, stay_type, stay_type_dummy, number_of_reviews, review_scores_rating, review_scores_accuracy, review_scores_cleanliness, review_scores_communication, review_scores_location, review_scores_value) %>% filter(!is.na(price)) %>% filter(number_of_reviews > 0)
+sum(is.na(filtered_dataset_London$price)) #no missing value for prices anymore
+
+sum(duplicated(filtered_dataset_London)) #there are no duplicates in the dataset
+
+summary(filtered_dataset_London$price) #there are some extreme outliers in the price variable
+boxplot(filtered_dataset_London$price, main="Boxplot of Price") #insight in the outliers
+
+Q1 <- quantile(filtered_dataset_London$price, 0.25, na.rm = TRUE) #Checking outliers by using the interquartile range method
+Q3 <- quantile(filtered_dataset_London$price, 0.75, na.rm = TRUE)
+IQR <- Q3 - Q1
+
+upper_bound <- Q3 + 1.5 * IQR
+lower_bound <- Q1 - 1.5 * IQR
+outliers <- filtered_dataset_London$price[filtered_dataset_London$price > upper_bound | filtered_dataset_London$price < lower_bound]
+outliers
+
+percentage_outliers <- length(outliers) / length(filtered_dataset_London$price) * 100
+percentage_outliers #7,6 percent of the prices lies outside the bounds
+
+#Winsorize prices by property type (0.05-0.95 percentiles)
+##Filter data by property type
+filtered_by_pt_ldn <- split(filtered_dataset_London , filtered_dataset_London$property_type) 
+
+##Apply the winsorize function to each property type
+winsorized_prices_ldn <- lapply(filtered_by_pt_ldn, winsorize_price) #winsorize_price() function is already defined in the Amsterdam section. so re-use.
+##Combine the winsorized data into one overview
+combined_ldn <- do.call(rbind, winsorized_prices_ldn)
+
+boxplot(combined_ldn$price, main="Boxplot of Price") #insight in the outliers after winsorized prices. 
+boxplot(filtered_dataset_London$price, main="Boxplot of Price") #insight in the outliers without winsorized prices.
+```
+
+```{r analysis, include = FALSE}
+city_datasets <- list(Amsterdam = combined_ams, Tokyo = combined_tyo, London = combined_ldn)
+
+```
+
+# Pricing analysis
+
+```{r price_analysis, echo=FALSE}  
+
+# Initialize an empty dataframe to store results
+pricing_results <- data.frame()
+
+# Loop through each city dataset
+for (city_name in names(city_datasets)) {
+  # Get the city dataset
+  city_data <- city_datasets[[city_name]]
+  
+  # Summarize pricing by stay_length
+  pricing_summary <- city_data %>%
+    group_by(stay_type) %>%
+    summarize(mean_price = mean(price, na.rm = TRUE),
+              median_price = median(price, na.rm = TRUE),
+              min_price = min(price, na.rm = TRUE),
+              max_price = max(price, na.rm = TRUE))
+  
+  # Add city name to the summary
+  pricing_summary$city <- city_name
+  
+  # Append the summary to the results dataframe
+  pricing_results <- bind_rows(pricing_results, pricing_summary)
+}
+
+# Print the combined results
+print(pricing_results)
+
+```
+Disregarding room type and review scores, our analysis showed a marked difference in average pricing between short-term and long-term listings. In both Amsterdam and Tokyo, short-term stays exhibited a higher average price point compared to their long-term counterparts. Interestingly, London demonstrated an inverse trend, with long-term listings being generally more expensive.
+
+# Linear Regression
+## Amsterdam interpretation 
+Before interpreting the results it is good to establish a the baseline of the variables
+Stay_type_dummy = 0 (long-stay), room_type =  "Entire home/apt", and review_scores_rating = 0 (max 5). Furthermore, the analysis will hold a 5% significance level. The main effect stay_type_dummy on the price suggests that on average a "long-stay" in 129 Euro lower than "short-stay". However, since the p-value (0.08)>0.05 this shows a marginally significant effect. Therefore, It can be concluded with 95% statistical confidence that duration of stay (short vs. long) does not differ much in price. 
+
+In contrast there are three variable that are statistically significant with a confidence level of 95%.
+
+* **room_typeHotel room:** On average, a hotel room is priced 736 Euro lower in comparison to an entire home/apt (p-value = 0.0156).
+
+* **stay_type_dummy * review_scores_rating:** The effect of "review_scores_rating" on price is different for "long-stay" listings compared to "short-stay". For "long-stay" listings, a one star increase in "review_scores_rating" is associated with a 32.4 Euro increase in price. This shows the moderation effect of reviews on the relationship between price and stay_type is significant (p-value = 0.0329)
+
+* **room_typeHotel room * review_scores_rating:** For hotel rooms, a one review increase in "review_scores_rating" leads to an additional increase in price by 139 Euro, compared to the baseline ‘Entire home/apt’. The shows the moderating effect of reviews on the relationship between hotel rooms and price is significant (p-value = 0.0315) .
+
+Analysis of the Amsterdam listings reveals a lack of long-stay accommodations within the hotel and shared room categories. Consequently, coefficients for the interaction terms "long-stay", "hotel room", and "shared room" are necessarily represented as NA (not available). This aligns with the established short-term nature of  hotel and shared room listings, which typically lack a 7-day minimum stay requirement.
+
+## Tokyo interpretation
+As for the Airbnb listings in Tokyo, the baseline and significance level remains similar to Amsterdam. The main effect stay_type_dummy on the price suggests that on average a ‘long-stay’ in 33620 Yen lower than ‘short-stay’. Since the p-value (0.00653) < 0.05 this implies that there is a significant difference in price between the listing with a short_stay vs long_stay in Tokyo.
+
+Despite the lack of significance in the majority of the terms. The interaction between 
+stay_type_dummy * review_scores_rating is significant. It implies that effect of "review_scores_rating" on price is different for "long-stay" listings compared to "short-stay". For "long-stay" listings, a one star increase in "review_scores_rating" is associated with a 7321 Yen increase in price. This shows the moderation effect of reviews on the relationship between price and stay_type is significant (p-value = 0.00515) 
+
+Like Amsterdam, Tokyo hotels listed on the platform primarily offer short-term stays. This lack of long-stay options prevents us from analyzing the interaction between "long-stay" and "hotel room" variables
+
+## London interpretation
+Finally, the London Airbnb listings will be treated with the same baseline and significance level (5%). The main effect stay_type_dummy on the price suggests that on average a ‘long-stay’ is 56.8 Pounds lower than ‘short-stay’. Since the p-value (0.0000124) < 0.05 this implies that there is a significant difference in price between the listing with a short_stay vs long_stay in London.
+
+In addition there are 5 terms that are statisically significant with a confidence level of 95%.
+
+* **“room_typePrivate room”:** On average, a private room is priced 147 Pounds lower in comparsion to an entire home/apt (p-value = 0.000000000116).
+
+* **“stay_type_dummy * room_typePrivate room”:** On average when a listing is a long stay in a private room in comparison to short stay in an entire home/apt , the first option is 91.3 Pounds more in the listing price (p-value = 0.0001.51)
+
+* **“stay_type_dummy * room_typeShared room”:** Similarly, on average when a listing is a long stay in a shared room in comparison to short stay in an entire home/apt , the first option is 277 Pounds more in the listing price. Evidently, the moderating effect of shared room on the relationship between price and stay_type is significant (p-value = 0.00843).
+
+* **“stay_type_dummy * review_score_rating”:** The effect of "review_scores_rating" on price is different for "long-stay" listings compared to "short-stay". For "long-stay" listings, an one star increase in "review_scores_rating" is associated with an average 11.8 Pounds increase in price. This shows the moderation effect of reviews on the relationship between price and stay_type is significant (p-value = 0.0000117)
+
+* **“stay_type_dummy * room_typePrivate room * review_scores_rating”:** On average when a listing is a long stay in a private room in comparison to short stay in an entire home/apt , and the review increase by one star it would decrease the listing price by 16.8 Pounds. Indicating that the moderating effect of private room and review score has a significant negative effect on the relationship between stay type and price (p-value = 0.000998). 
+
+In contrast to listings located in Amsterdam and Tokyo, hotel and shared room options do long-term stay opportunities. However,  graphical representations of the data underlines the limited availability of such listings. While some listing data exists within these categories, the analysis suggests that they do not exert a statistically significant impact on the main effect. 
+
+```{r linear_regression, echo=FALSE}
+lr_results <- list()
+
+# Loop through each city dataset
+for (city_name in names(city_datasets)) {
+  # Get the city dataset
+  city_data <- city_datasets[[city_name]]
+  
+  # Perform Linear Regression with price as IV and stay_type as DV with moderators room_type and review_scores_rating
+  lr_result <- lm(price ~ stay_type_dummy * room_type * review_scores_rating, data = city_data)
+  
+  # Store Linear Regression results in the list
+  lr_results[[city_name]] <- tidy(lr_result)
+}
+
+# Print Linear Regression results for each city
+for (city_name in names(lr_results)) {
+  cat("City:", city_name, "\n")
+  print(lr_results[[city_name]])
+  cat("\n")
+}
+
+plot_ams <- ggplot(combined_ams, aes(x = stay_type, y = price)) +
+  geom_point() +
+  facet_wrap(~ room_type) + ggtitle("Amsterdam")
+plot_ams
+
+plot_tyo <- ggplot(combined_tyo, aes(x = stay_type, y = price)) +
+  geom_point() +
+  facet_wrap(~ room_type) + ggtitle("Tokyo")
+plot_tyo
+
+plot_ldn <- ggplot(combined_ldn, aes(x = stay_type, y = price)) +
+  geom_point() +
+  facet_wrap(~ room_type) + ggtitle("London")
+plot_ldn
+```
+
+

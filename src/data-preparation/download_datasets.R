@@ -10,6 +10,7 @@ list_urls <- list(c(url='http://data.insideairbnb.com/the-netherlands/north-holl
                   c(url='http://data.insideairbnb.com/japan/kant%C5%8D/tokyo/2023-12-27/data/listings.csv.gz')
 )
 
+
 #names for earch dataset
 names <- c('Amsterdam_listings', 'London_listings', 'Tokyo_listings')
 
@@ -18,6 +19,3 @@ for (i in 1:length(list_urls)) {
                 paste0("../../data/", names[i], ".csv.gz"), 
                 mode = "wb")
 }
-
-
-
