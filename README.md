@@ -74,7 +74,7 @@ You can run the makefile by following these steps:
 2. Create a local repository where the cloned files will be stored
 3. Clone the repository to your local computer using terminal / command prompt. Go to the right directory and type:
 ```
-git clone https://github.com/{YOUR-USERNAME}/{xxxx}
+git clone https://github.com/{YOUR-USERNAME}/How-does-Airbnb-pricing-differ-between-stay-duration
 ```
 4.. Set your working directory to the just cloned folder using cd {need to be filled in}
 5. Type make
