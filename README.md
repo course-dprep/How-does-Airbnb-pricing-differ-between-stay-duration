@@ -86,19 +86,11 @@ git clone https://github.com/{YOUR-USERNAME}/{xxxx}
 ## 5. Interpretation & Conclusions
 
 ### Interpretation
-To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below:
-#### Amsterdam
+To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
 
-<img width="578" alt="截圖 2024-03-22 清晨5 53 35" src="https://github.com/course-dprep/team-project-dprep_group_8/assets/160841129/853f544d-a5f2-4144-8d4b-c48978fbc3ce">
-
-#### Tokyo
-
-<img width="580" alt="截圖 2024-03-22 清晨5 53 45" src="https://github.com/course-dprep/team-project-dprep_group_8/assets/160841129/25887eca-594a-4a18-94d9-7575c37707b7">
+#### need to Add the linear regression graphs
 
 
-#### London
-
-<img width="579" alt="截圖 2024-03-22 清晨5 53 54" src="https://github.com/course-dprep/team-project-dprep_group_8/assets/160841129/d09463c4-2ad3-43b2-8d84-f511e83e619d">
 
 
 A more detailed analysis of these results can be found in the PDF in the xxx folder.
