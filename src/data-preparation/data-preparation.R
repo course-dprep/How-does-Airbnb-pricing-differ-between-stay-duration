@@ -1,6 +1,3 @@
-#install packages
-#install.packages("DescTools") # should be moved to a different file
-
 #load libraries
 library(ggplot2)
 library(tidyverse) 
@@ -13,7 +10,7 @@ library(DescTools) # winsorize library
 city_urls <- c(
   "../../data/Amsterdam_listings.csv.gz",
   "../../data/Tokyo_listings.csv.gz",
-  "../../data/London_listings.csv.gz"
+ "../../data/London_listings.csv.gz"
 )
 
 #loop through each city dataset
@@ -74,22 +71,5 @@ london_data <- city_datasets$London
 # Add loop to save each city's data
 for (city_name in names(city_datasets)) {
   filename <- paste0(city_name, "_aggregated_df.csv") # Construct filename
-  write_csv(city_datasets[[city_name]]$combined, filename)  # Write 'combined' data
+  write_csv(city_datasets[[city_name]]$combined, file = filename)  # Write 'combined' data
 }
-
-# create listing_count dataframe
-listings_count <- data.frame(city = c("Amsterdam", "Tokyo", "London"), count = c(nrow(amsterdam_data$combined), nrow(tokyo_data$combined), nrow(london_data$combined)))
-
-# bar chart for the total number of listings in each city
-ggplot(listings_count, aes(x = reorder(city, -count), y = count, fill = city)) +
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = count), vjust = -0.3, size = 3.5) +
-  labs(title = "Total number of listings in each city", x = "City", y = "Number of listings") +
-  scale_fill_manual(values = c("Amsterdam" = "lightblue3", "Tokyo" = "forestgreen", "London" = "deepskyblue4")) +
-  theme_minimal() +
-  theme(legend.position = "none")
-
-#save the bar chart
-ggsave("listings_count.png", plot = last_plot(), device = "png", width = 10, height = 6, units = "in", dpi = 300)
-
-
