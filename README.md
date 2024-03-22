@@ -35,7 +35,7 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
 │   ├── data-preparation
 │   └── paper
 └── src
-    ├── analysis ├──Ananlysis.R
+    ├── analysis ├──Analysis.R
                  ├──Interpretation.Rmd
                  └──Interpretation.pdf
     ├── data-preparation ├──Install_packages.R
