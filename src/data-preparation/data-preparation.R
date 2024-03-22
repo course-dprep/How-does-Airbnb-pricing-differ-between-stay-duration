@@ -13,6 +13,10 @@ city_urls <- c(
  "../../data/London_listings.csv.gz"
 )
 
+# Set output directory
+output_directory <- "../../output" 
+
+
 #loop through each city dataset
 process_city_data <- function(city_url) {
   # Read data
@@ -70,6 +74,7 @@ london_data <- city_datasets$London
 
 # Add loop to save each city's data
 for (city_name in names(city_datasets)) {
-  filename <- paste0(city_name, "_aggregated_df.csv") # Construct filename
-  write_csv(city_datasets[[city_name]]$combined, file = filename)  # Write 'combined' data
+  filename <- paste0(city_name, "_aggregated_df.csv") 
+  output_path <- file.path(output_directory, filename) 
+  write_csv(city_datasets[[city_name]]$combined, file = output_path)
 }
