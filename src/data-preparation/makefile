@@ -10,4 +10,3 @@ all: ../data-preparation/Amsterdam_aggregated_df.csv ../data-preparation/Tokyo_a
 # data preparation
 ../data-preparation/Amsterdam_aggregated_df.csv ../data-preparation/Tokyo_aggregated.csv ../data-preparation/London_aggregated.csv: ../data-preparation/data-preparation.R ../../data/Amsterdam_listings.csv.gz ../../data/Tokyo_listings.csv.gz ../../data/London_listings.csv.gz
 	R --vanilla < ../data-preparation/data-preparation.R
-

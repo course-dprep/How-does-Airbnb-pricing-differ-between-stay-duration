@@ -26,5 +26,3 @@ $(PDF_FILE): $(RMD_FILE)
 
 # Phony targets
 .PHONY: all 
-
-
