@@ -1,12 +1,12 @@
-../../data/Amsterdam_listings.csv.gz ../../data/London_listings.csv.gz ../../Tokyo_listings.csv.gz: download-datasets.R
-	R --vanilla < ../src/data-preparation/download-datasets.R
+all: ../data-preparation/Amsterdam_aggregated_df.csv ../data-preparation/Tokyo_aggregated.csv ../data-preparation/London_aggregated.csv ../../data-preparation/airbnb_listings_distribution.png ../../data-preparation/stay_category_distribution.png ../../data-preparation/room_type_distribution.png
 
-Amsterdam_aggregated_df.csv London_aggregated_df.csv Tokyo_aggregated_df.csv: data-preparation.R
-	R --vanilla < ../src/data-preparation/data-preparation.R
+#download the datasets
+../../data/Amsterdam_listings.csv.gz ../../data/Tokyo_listings.csv.gz ../../data/London_listings.csv.gz: download_datasets.R
+	R --vanilla < download_datasets.R
 
-	
-clean:
-	R -e "unlink('*pdf')"
-	R -e "unlink('*png')"
-	R -e "unlink('*csv')"
-	
+#data exploration
+../../data-preparation/airbnb_listings_distribution.png ../../data-preparation/stay_category_distribution.png ../../data-preparation/room_type_distribution.png: ../data-preparation/data-exploration.R ../../data/Amsterdam_listings.csv.gz ../../data/Tokyo_listings.csv.gz ../../data/London_listings.csv.gz
+	R --vanilla < ../data-preparation/data-exploration.R
+# data preparation
+../data-preparation/Amsterdam_aggregated_df.csv ../data-preparation/Tokyo_aggregated.csv ../data-preparation/London_aggregated.csv: ../data-preparation/data-preparation.R ../../data/Amsterdam_listings.csv.gz ../../data/Tokyo_listings.csv.gz ../../data/London_listings.csv.gz
+	R --vanilla < ../data-preparation/data-preparation.R
