@@ -89,6 +89,15 @@ git clone https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between
 ### Interpretation
 To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
 
+### Conclusions
+The key findings from our analysis are: 
+- In Amsterdam and Tokyo short-term stays show higher average prices than in London. Whereas, a long stay in London demonstrates an inverse trend.
+- Overall the long-term stays price is below average among Amsterdam, London, and Tokyo.
+- Unlike Tokyo and London with notable impact of stay duration on pricing, listings in Amsterdam have shown no significant difference.
+- Unlike Amsterdam and Tokyo, London offers long-term stay opportunities in hotel and shared room categories, although their availability is limited.
+- Across all three cities, different room types show significant effects on pricing.
+- There is a significant interaction between review scores and stay duration in Amsterdam, Tokyo, and London, particularly for long-stay accommodations.
+
 ### Additional Visualization
 #### Number of Airbnb listings
 ![airbnb_listings_distribution](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/f3ceb381-cd2c-43aa-98c0-3d496a27995c)
@@ -114,14 +123,6 @@ _Figure 3: Bar chart showing the distribution of room types across Amsterdam, To
 
 A more detailed analysis of these results can be found in the PDF in the src/analysis folder.
 
-### Conclusions
-The key findings from our analysis are: 
-- In Amsterdam and Tokyo short-term stays show higher average prices than in London. Whereas, a long stay in London demonstrates an inverse trend.
-- Overall the long-term stays price is below average among Amsterdam, London, and Tokyo.
-- Unlike Tokyo and London with notable impact of stay duration on pricing, listings in Amsterdam have shown no significant difference.
-- Unlike Amsterdam and Tokyo, London offers long-term stay opportunities in hotel and shared room categories, although their availability is limited.
-- Across all three cities, different room types show significant effects on pricing.
-- There is a significant interaction between review scores and stay duration in Amsterdam, Tokyo, and London, particularly for long-stay accommodations.
 
 
 ## 7. About
