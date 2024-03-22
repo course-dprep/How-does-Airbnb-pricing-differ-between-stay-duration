@@ -72,7 +72,7 @@ You can run the makefile by following these steps:
 
 1. Fork the repository to your own GitHub account
 2. Create a local repository where the cloned files will be stored
-3. Clone the repository to your local computer using terminal / command prompt. Go to the right directory and type:
+3. Clone the repository to your local computer using terminal / command prompt.
 ```
 git clone https://github.com/{YOUR-USERNAME}/How-does-Airbnb-pricing-differ-between-stay-duration
 ```
