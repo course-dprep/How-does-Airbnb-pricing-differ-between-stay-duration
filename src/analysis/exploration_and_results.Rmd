@@ -32,7 +32,7 @@ Exploratory data analysis was conducted on the raw datasets representing Amsterd
 The figure below shows the distribution of Airbnb listings across the cities of Amsterdam, Tokyo, and London. This would help to understand the number of listings available in each city. The bar chart reveals a clear trend that Amsterdam exhibits the lowest number of listings, followed by Tokyo, with London demonstrating the highest listings.
 
 ```{r echo=FALSE}
-knitr::include_graphics("../data-preparation/airbnb_listings_distribution.png")
+knitr::include_graphics("../../output/airbnb_listings_distribution.png")
 ```
 _Figure 1: Bar chart showing the distribution of Airbnb listings across Amsterdam, Tokyo, and London._
 
@@ -40,7 +40,7 @@ _Figure 1: Bar chart showing the distribution of Airbnb listings across Amsterda
 Given the research's focus on price discrepancies between varying stay lengths, it is crucial to examine the distribution of stay length across the cities. The bar chart below shows the distribution of short-stay and long-stay listings in Amsterdam, Tokyo, and London. The chart reveals that the majority of listings in all cities are short-stay listings.
 
 ```{r echo=FALSE}
-knitr::include_graphics("../data-preparation/stay_category_distribution.png")
+knitr::include_graphics("../../output/stay_category_distribution.png")
 ```
 _Figure 2: Bar chart showing the distribution of short-stay and long-stay listings across Amsterdam, Tokyo, and London._
 
@@ -48,7 +48,7 @@ _Figure 2: Bar chart showing the distribution of short-stay and long-stay listin
 The distribution of room types across the cities is essential for understanding the variety of listings available to Airbnb users. The bar chart below illustrates the distribution of room types in Amsterdam, Tokyo, and London. The chart shows that the majority of listings accros all cities are "entire home/apartment" and "Private room" listings.
 
 ```{r echo=FALSE}
-knitr::include_graphics("../data-preparation/room_type_distribution.png")
+knitr::include_graphics("../../output/room_type_distribution.png")
 ```
 _Figure 3: Bar chart showing the distribution of room types across Amsterdam, Tokyo, and London._
 
@@ -60,15 +60,18 @@ The research aims to analyze the relationship between pricing discrepancies on s
 
 ```{r Mean prices, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
-read_csv("../analysis/pricing_results.csv")
+library(knitr)
+price <- read_csv("../../output/pricing_results.csv")
+kable(price)
 ```
 Disregarding room type and review scores, our analysis showed a marked difference in average pricing between short-term and long-term listings. In both Amsterdam and Tokyo, short-term stays exhibited a higher average price point compared to their long-term counterparts. Interestingly, London demonstrated an inverse trend, with long-term listings being generally more expensive.
 
 ## Linear regression results
-### Amsterdam
+### Explaining Variation in listing prices in Amsterdam
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-read_csv("../analysis/Amsterdam_lr_results.csv")
+ams_results <- read_csv("../../output/Amsterdam_lr_results.csv")
+kable(ams_results)
 ```
 
 Before interpreting the results it is good to establish a the baseline of the variables
@@ -84,10 +87,11 @@ In contrast there are three variable that are statistically significant with a c
 
 Analysis of the Amsterdam listings reveals a lack of long-stay accommodations within the hotel and shared room categories. Consequently, coefficients for the interaction terms "long-stay", "hotel room", and "shared room" are necessarily represented as NA (not available). This aligns with the established short-term nature of  hotel and shared room listings, which typically lack a 7-day minimum stay requirement.
 
-### Tokyo
+### Explaining Variation in listing prices in Tokyo
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-read_csv("../analysis/Tokyo_lr_results.csv")
+tyo_results <- read_csv("../../output/Tokyo_lr_results.csv")
+kable(tyo_results)
 ```
 
 As for the Airbnb listings in Tokyo, the baseline and significance level remains similar to Amsterdam. The main effect stay_type_dummy on the price suggests that on average a ‘long-stay’ in 33620 Yen lower than ‘short-stay’. Since the p-value (0.00653) < 0.05 this implies that there is a significant difference in price between the listing with a short_stay vs long_stay in Tokyo.
@@ -97,10 +101,11 @@ stay_type_dummy * review_scores_rating is significant. It implies that effect of
 
 Like Amsterdam, Tokyo hotels listed on the platform primarily offer short-term stays. This lack of long-stay options prevents us from analyzing the interaction between "long-stay" and "hotel room" variables
 
-### London
+### Explaining Variation in listing prices in London
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-read_csv("../analysis/London_lr_results.csv")
+ldn_results <- read_csv("../../output/London_lr_results.csv")
+kable(ldn_results)
 ```
 
 Finally, the London Airbnb listings will be treated with the same baseline and significance level (5%). The main effect stay_type_dummy on the price suggests that on average a ‘long-stay’ is 56.8 Pounds lower than ‘short-stay’. Since the p-value (0.0000124) < 0.05 this implies that there is a significant difference in price between the listing with a short_stay vs long_stay in London.

@@ -1,6 +1,7 @@
 #load libraries
 library(dplyr)
 library(ggplot2)
+library(readr)
 
 # Load the raw city listings 
 Amsterdam_listings <- read_csv("../../data/Amsterdam_listings.csv.gz")
@@ -31,7 +32,7 @@ ggplot(listings_per_city, aes(x = reorder(City, num_listings), y = num_listings)
   geom_text(aes(label = num_listings), vjust = -0.5, color = "black", size = 3) 
 
 # Save the plot as a PNG file
-ggsave("../data-preparation/airbnb_listings_distribution.png", width = 8, height = 6, dpi = 300)
+ggsave("../../output/airbnb_listings_distribution.png", width = 8, height = 6, dpi = 300)
 
 ###Stay_type###
 # Create a new column for the stay length category
@@ -48,7 +49,7 @@ ggplot(combined_listings, aes(x = stay_category, fill = City)) +
   scale_fill_manual(values = c("plum", "forestgreen", "deepskyblue4"))
 
 # save the historgram as a PNG file
-ggsave("../data-preparation/stay_category_distribution.png", width = 8, height = 6, dpi = 300)
+ggsave("../../output/stay_category_distribution.png", width = 8, height = 6, dpi = 300)
 
 ###Room_type###
 # Get counts of room types per city
@@ -67,4 +68,4 @@ ggplot(room_type_counts, aes(x = room_type, y = count, fill = City)) +
   scale_fill_manual(values = c("plum", "forestgreen", "deepskyblue4")) 
 
 # save the plot as a PNG file
-ggsave("../data-preparation/room_type_distribution.png", width = 8, height = 6, dpi = 300)
+ggsave("../../output/room_type_distribution.png", width = 8, height = 6, dpi = 300)

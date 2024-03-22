@@ -1,15 +1,11 @@
-all: ../analysis/Amsterdam_lr_results.csv ../analysis/Tokyo_lr_results.csv ../analysis/London_lr_results.csv ../analysis/pricing_results.csv 
+all: ../../output/Amsterdam_lr_results.csv ../../output/Tokyo_lr_results.csv ../../output/London_lr_results.csv ../../output/pricing_results.csv 
 
-../analysis/Amsterdam_lr_results.csv ../analysis/Tokyo_lr_results.csv ../analysis/London_lr_results.csv ../analysis/pricing_results.csv: ../analysis/Analysis.R ../data-preparation/Amsterdam_aggregated_df.csv ../data-preparation/Tokyo_aggregated_df.csv ../data-preparation/London_aggregated_df.csv
-	R --vanilla < ../analysis/Analysis.R
+../../output/Amsterdam_lr_results.csv ../../output/Tokyo_lr_results.csv ../../output/London_lr_results.csv ../../output/pricing_results.csv: ../analysis/analysis.R ../../output/Amsterdam_aggregated_df.csv ../../output/Tokyo_aggregated_df.csv ../../output/London_aggregated_df.csv
+	R --vanilla < ../analysis/analysis.R
 
-
-#clean:
-#	R -e "unlink('../analysis/*.csv')"
-	
 # Define variables
-RMD_DIR = ../output
-PDF_DIR = ../output
+RMD_DIR = ../analysis
+PDF_DIR = ../../output
 RMD_FILE = $(RMD_DIR)/exploration_and_results.Rmd
 PDF_FILE = $(PDF_DIR)/exploration_and_results.pdf
 
@@ -20,9 +16,13 @@ all: $(PDF_FILE)
 $(PDF_FILE): $(RMD_FILE)
 	Rscript -e 'rmarkdown::render("$<", output_dir = "$(PDF_DIR)")'
 
-# Clean rule
-#clean:
-#	rm -f $(PDF_FILE)
-
 # Phony targets
 .PHONY: all 
+
+clean:
+	R -e "unlink('../../output/Amsterdam_lr_results.csv')"
+	R -e "unlink('../../output/Tokyo_lr_results.csv')"
+	R -e "unlink('../../output/London_lr_results.csv')"
+	R -e "unlink('../../output/pricing_results.csv')"
+	R -e "unlink('../../output/exploration_and_results.pdf')"
+

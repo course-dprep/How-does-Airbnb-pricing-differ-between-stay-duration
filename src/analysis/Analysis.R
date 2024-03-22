@@ -7,7 +7,7 @@ library(tidyverse)
 
 #load the data
 ##Specify path to your CSV data 
-data_path <- "../data-preparation"
+data_path <- "../../output"
 
 ##Create an empty list to store datasets
 city_datasets <- list()
@@ -73,8 +73,12 @@ for (city_name in names(lr_results)) {
   cat("\n")
 }
 
+# Specify output directory
+output_directory <- "../../output" 
+
 # Save processed data
-write_csv(pricing_results, "pricing_results.csv")
-write_csv(lr_results$Amsterdam, "Amsterdam_lr_results.csv")
-write_csv(lr_results$Tokyo, "Tokyo_lr_results.csv")
-write_csv(lr_results$London, "London_lr_results.csv")
+write_csv(pricing_results, file = file.path(output_directory, "pricing_results.csv"))
+write_csv(lr_results$Amsterdam, file = file.path(output_directory, "Amsterdam_lr_results.csv"))
+write_csv(lr_results$Tokyo, file = file.path(output_directory, "Tokyo_lr_results.csv"))
+write_csv(lr_results$London, file = file.path(output_directory,  "London_lr_results.csv"))
+
