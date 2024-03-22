@@ -20,3 +20,4 @@ clean:
 	R -e "unlink('output/London_lr_results.csv')"
 	R -e "unlink('output/pricing_results.csv')"
 	R -e "unlink('output/exploration_and_results.pdf')"
+

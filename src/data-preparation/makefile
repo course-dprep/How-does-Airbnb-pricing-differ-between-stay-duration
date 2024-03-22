@@ -15,3 +15,4 @@ all: ../../output/Amsterdam_aggregated_df.csv ../../output/Tokyo_aggregated.csv 
 clean:
 	R -e "unlink('../../output/*.csv')"
 	R -e "unlink('../../output/*.png')"
+
