@@ -45,7 +45,7 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
     └── xxx
 ```
 
-## 4. Running instructions
+## 5. Running instructions
 
 ### Software dependencies
 
@@ -83,7 +83,7 @@ git clone https://github.com/{YOUR-USERNAME}/How-does-Airbnb-pricing-differ-betw
 {xxxx}
 ```
 
-## 5. Interpretation & Conclusions
+## 6. Interpretation & Conclusions
 
 ### Interpretation
 To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
@@ -105,7 +105,7 @@ The key findings from our analysis are:
 - There is a significant interaction between review scores and stay duration in Amsterdam, Tokyo, and London, particularly for long-stay accommodations.
 
 
-## 6. About
+## 7. About
 
 This project is conducted for the Data Preparation and Workflow Management course at Tilburg University. The members of our team are:
 
