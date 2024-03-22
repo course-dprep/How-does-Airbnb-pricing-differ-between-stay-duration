@@ -88,7 +88,7 @@ git clone https://github.com/{YOUR-USERNAME}/How-does-Airbnb-pricing-differ-betw
 ### Interpretation
 To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
 
-#### need to Add the linear regression graphs and add more interpretation to it
+#### need to add an overview linear regression graph/table and interpretation to it
 
 
 
