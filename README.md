@@ -76,7 +76,7 @@ You can run the makefile by following these steps:
 ```
 git clone https://github.com/{YOUR-USERNAME}/How-does-Airbnb-pricing-differ-between-stay-duration
 ```
-4.. Set your working directory to the just cloned folder using cd {need to be filled in}
+4. Set your working directory to the just cloned folder using cd How-does-Airbnb-pricing-differ-between-stay-duration
 5. Type make
 6. In your local folder, the generated output with the regression results can be found:
 ```
