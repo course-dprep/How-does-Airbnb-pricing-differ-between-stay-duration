@@ -93,7 +93,7 @@ To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, c
 
 
 
-A more detailed analysis of these results can be found in the PDF in the xxx folder.
+A more detailed analysis of these results can be found in the PDF in the src/analysis folder.
 
 ### Conclusions
 The key findings from our analysis are: 
