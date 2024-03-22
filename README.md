@@ -90,6 +90,13 @@ git clone https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between
 To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
 
 #### need to add an overview linear regression graph/table and interpretation to it
+![airbnb_listings_distribution](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/f3ceb381-cd2c-43aa-98c0-3d496a27995c)
+
+![stay_category_distribution](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/d93e8d92-0223-47e3-8934-361ac3798db5)
+
+![room_type_distribution](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/a5b868a9-2fa0-4dcd-b43c-e8f21254ad50)
+
+
 
 
 
