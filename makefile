@@ -6,9 +6,9 @@ data-preparation:
 analysis: data-preparation
 	make -C src/analysis
 	
-install: Install_packages.R
+install: install_packages.R
         export R_LIBS_USER=$(HOME)/R/packages  # Optional: Specify install location
-        R --vanilla -e 'options(repos = c(CRAN = "https://mirror.lyrahosting.com/CRAN/"))' < Install_packages.R 
+        R --vanilla -e 'options(repos = c(CRAN = "https://mirror.lyrahosting.com/CRAN/"))' < install_packages.R 
 
 clean:
 	R -e "unlink('output/*.csv')"
