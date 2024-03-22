@@ -3,9 +3,9 @@ library(dplyr)
 library(ggplot2)
 
 # Load the raw city listings 
-Amsterdam_listings <- read.csv("../../data/Amsterdam_listings.csv.gz")
-Tokyo_listings <- read.csv("../../data/Tokyo_listings.csv.gz")
-London_listings <- read.csv("../../data/London_listings.csv.gz")
+Amsterdam_listings <- read_csv("../../data/Amsterdam_listings.csv.gz")
+Tokyo_listings <- read_csv("../../data/Tokyo_listings.csv.gz")
+London_listings <- read_csv("../../data/London_listings.csv.gz")
 
 # Combine the DataFrames into a single DataFrame
 combined_listings <- rbind(Amsterdam_listings, Tokyo_listings, London_listings)
