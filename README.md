@@ -18,7 +18,6 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
 | **Variables**                            | **Description**                           |
 | ---------------------------------------- |----------------------------------------------------|
 | price                                    | Room price in Amsterdam, Tokyo and London is treated as dependent variable
-| price_per_night                          | Average price per night in local currency
 | stay_type_dummy                          | Dummy whether the stay is fewer than 7 nights 
 | room_type                                | type of room ("entire home/apt","hotel room","private room,"shared room") |
 | review_scores_rating                     | How the review scores given by guests from 0 to 5
