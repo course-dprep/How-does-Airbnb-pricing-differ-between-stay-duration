@@ -49,12 +49,12 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
 
 ### Software dependencies
 
-For this research, we downloaded the data, cleaned and analyzed the data by using Rstudio. To run each file automatically, we created makefile to achieve this goal.The instructions are available on [http://tilburgsciencehub.com/](https://tilburgsciencehub.com):
+For this research, we downloaded the data, cleaned and analyzed the data by using Rstudio. To run each file automatically, we created a makefile to achieve this goal. The instructions are available on [http://tilburgsciencehub.com/](https://tilburgsciencehub.com):
 
 - Make
 - R and RStudio: [Click here to see how to install R and RStudio](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/)
 
-Make sure you install the following packages in RStudio before you run the commands. Otherwise,you can load each package using the library() function:
+Make sure you install the following packages in RStudio before you run the commands. Otherwise, you can load each package using the library() function:
 
 ```
 library(tidyverse)
@@ -74,7 +74,7 @@ You can run the makefile by following these steps:
 2. Create a local repository where the cloned files will be stored
 3. Clone the repository to your local computer using terminal / command prompt.
 ```
-git clone https://github.com/{YOUR-USERNAME}/How-does-Airbnb-pricing-differ-between-stay-duration
+git clone https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration
 ```
 4. Set your working directory to the just cloned folder using cd How-does-Airbnb-pricing-differ-between-stay-duration
 5. Type make
