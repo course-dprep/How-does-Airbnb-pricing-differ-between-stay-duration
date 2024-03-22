@@ -1,4 +1,4 @@
-# How does Airbnb pricing differ between short-term and long-term stays
+# How does Airbnb pricing differ between stay duration
 
 ## 1. Research Motivation
 
