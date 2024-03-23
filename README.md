@@ -122,7 +122,7 @@ _Figure 3: Bar chart showing the distribution of room types across Amsterdam, To
 
 
 
-A more detailed analysis of these results can be found in the PDF in the src/analysis folder.
+A more detailed analysis of these results can be found in the  ../exploration_and_results.PDF file.
 
 
 
@@ -130,10 +130,10 @@ A more detailed analysis of these results can be found in the PDF in the src/ana
 
 This project is conducted for the Data Preparation and Workflow Management course at Tilburg University. The members of our team are:
 
--Lieke Geudens 
+- Lieke Geudens 
   l.n.geudens@tilburguniversity.edu
--Lingwei Zhao 
+- Lingwei Zhao 
   l.zhao_1@tilburguniversity.edu
--Victoria Hsu 
+- Victoria Hsu 
   c.f.hsu@tilburguniversity.edu
 
