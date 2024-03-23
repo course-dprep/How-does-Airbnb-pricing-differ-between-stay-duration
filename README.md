@@ -26,24 +26,21 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
 
 
 
-## 4. Repository overview (still need to be fixed)
+## 4. Repository overview
 
 ```
 ├── README.md
-├── data
-├── gen
-│   ├── analysis
-│   ├── data-preparation
-│   └── paper
+├── install_packages.R
+├── output ├──.gitkeep
+├── makefile
 └── src
     ├── analysis ├──Analysis.R
-                 ├──Interpretation.Rmd
-                 └──Interpretation.pdf
-    ├── data-preparation ├──Install_packages.R
-                         ├──download_datasets.R
+                 ├──exploration_and_results.Rmd
+                 └──makefile
+    ├── data-preparation ├──download_datasets.R
                          ├──data-preparation.R
+                         ├──data-exploration.R
                          └──makefile
-    └── xxx
 ```
 
 ## 5. Running instructions
