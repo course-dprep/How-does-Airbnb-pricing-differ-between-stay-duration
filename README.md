@@ -40,7 +40,7 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
            └──aggregated_df.csv
 ├── makefile
 └── src
-    ├── analysis ├──Analysis.R
+    ├── analysis ├──analysis.R
                  ├──exploration_and_results.Rmd
                  └──makefile
     ├── data-preparation ├──download_datasets.R
