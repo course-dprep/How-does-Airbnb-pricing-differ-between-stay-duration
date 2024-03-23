@@ -7,7 +7,7 @@ analysis: data-preparation
 	make -C src/analysis
 	
 install: install_packages.R
-	Rscript -e 'options(repos = c(CRAN = "https://mirror.lyrahosting.com/CRAN/")); packages <- c("broom", "dplyr", "ggplot2", "tidyverse", "readr", "data.table", "DescTools"); if (length(setdiff(packages, installed.packages()[,"Package"])) > 0) install.packages(setdiff(packages, installed.packages()[,"Package"]))' 
+	Rscript -e 'options(repos = c(CRAN = "https://mirror.lyrahosting.com/CRAN/")); packages <- c("broom", "dplyr", "ggplot2", "tidyverse", "readr", "data.table", "DescTools", "pandoc", "tinytex"); if (length(setdiff(packages, installed.packages()[,"Package"])) > 0) install.packages(setdiff(packages, installed.packages()[,"Package"]))' 
 
 clean:
 	R -e "unlink('output/*.csv')"
