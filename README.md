@@ -110,7 +110,6 @@ _Figure 1: Bar chart showing the distribution of Airbnb listings across Amsterda
 ![stay_category_distribution](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/d93e8d92-0223-47e3-8934-361ac3798db5)
 _Figure 2: Bar chart showing the distribution of short-stay and long-stay listings across Amsterdam, Tokyo, and London._
 
-The chart reveals that the majority of listings in all cities are short-stay listings.
 
 #### Distribution of Room Types
 
