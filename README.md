@@ -121,8 +121,10 @@ The key findings from our analysis are:
 
 ### Additional Visualization
 #### Number of Airbnb listings
+![lr_Amsterdam](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/157026470/f500789d-e1f0-49eb-9134-b2b84ec2a594)
 ![airbnb_listings_distribution](https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/f3ceb381-cd2c-43aa-98c0-3d496a27995c)
 _Figure 1: Bar chart showing the distribution of Airbnb listings across Amsterdam, Tokyo, and London._
+
 
 
 #### Distribution of Stay Duration
