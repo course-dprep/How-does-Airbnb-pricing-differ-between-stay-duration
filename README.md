@@ -78,11 +78,12 @@ You can run the makefile by following these steps:
 git clone https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration
 ```
 4. Set your working directory to the just cloned folder using cd How-does-Airbnb-pricing-differ-between-stay-duration
-5. Type make
-6. In your local folder, the generated output with the regression results can be found:
+5. Type
 ```
-{xxxx}
+make
 ```
+6. The generated results can be found in the ../output folder
+
 
 ## 6. Interpretation & Conclusions
 
