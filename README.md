@@ -88,7 +88,7 @@ make
 ## 6. Interpretation & Conclusions
 
 ### Interpretation
-To investigate the effect of stay duration on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
+To investigate the effect of stay duration on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The linear regression results per city can be found below: 
 #### Amsterdam
 <img width="959" alt="截圖 2024-03-23 下午3 15 49" src="https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/1df82ddb-86e9-4197-b000-c5559727dc4a">
 Listings in Amsterdam show no significant effect on price between short stay and long stay due to the p-value 0.08>0.05. Since Amsterdam listings reveal a lack of long-stay accommodations within the hotel and shared room categories. Consequently, coefficients for the interaction terms “long-stay”, “hotel room”, and “shared room” are represented as NA. This aligns with the established short-term nature of hotel and shared room listings, which typically lack a 7-day minimum stay requirement.
