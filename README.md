@@ -55,13 +55,15 @@ For this research, we downloaded the data, cleaned and analyzed the data by usin
 Make sure you install the following packages in RStudio before you run the commands. Otherwise, you can load each package using the library() function:
 
 ```
-library(tidyverse)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(data.table)
-library(broom)
-library(DescTools)
+install.packages("broom")
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("tidyverse")
+install.packages("readr")
+install.packages("data.table")
+install.packages("DescTools")
+install.packages("tinytex")
+install.packages("pandoc")
 ```
 
 ### Running the code
