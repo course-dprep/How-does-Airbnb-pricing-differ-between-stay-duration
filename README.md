@@ -31,7 +31,7 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
 ```
 ├── README.md
 ├── install_packages.R
-├── output ├──.gitkeep
+├── output 
 ├── makefile
 └── src
     ├── analysis ├──Analysis.R
