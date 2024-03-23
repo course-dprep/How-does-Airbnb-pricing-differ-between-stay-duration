@@ -89,6 +89,15 @@ make
 
 ### Interpretation
 To investigate the effect of on Airbnb prices across Amsterdam, Tokyo, London, considering review scores and room type, The outputs per city can be found below: 
+<img width="959" alt="截圖 2024-03-23 下午3 15 49" src="https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/1df82ddb-86e9-4197-b000-c5559727dc4a">
+
+
+<img width="979" alt="截圖 2024-03-23 下午3 18 54" src="https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/e6240ef4-1b35-418b-9fd2-9f12c9aed81b">
+
+
+<img width="965" alt="截圖 2024-03-23 下午3 21 49" src="https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration/assets/160841129/0f9e85cc-32aa-4e34-9054-c8dd917eba43">
+
+
 
 ### Conclusions
 The key findings from our analysis are: 
