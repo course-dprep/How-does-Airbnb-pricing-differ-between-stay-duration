@@ -78,7 +78,7 @@ You can run the makefile by following these steps:
 git clone https://github.com/course-dprep/How-does-Airbnb-pricing-differ-between-stay-duration
 ```
 4. Set your working directory to the just cloned folder using cd How-does-Airbnb-pricing-differ-between-stay-duration
-5. Then in your command line type
+5. Then in your command line type:
 ```
 make
 ```
