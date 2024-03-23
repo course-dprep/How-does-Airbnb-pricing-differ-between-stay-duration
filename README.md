@@ -31,7 +31,13 @@ The data used is in the listings.csv.gz files downloaded from the Inside Airbnb 
 ```
 ├── README.md
 ├── install_packages.R
-├── output 
+├── output ├──lr_results.csv
+           ├──listing_distribution.png
+           ├──stay_category_distribution.png
+           ├──room_type_distribution.png
+           ├──exploaration_and_results.pdf
+           ├──pricing_results.csv
+           └──aggregated_df.csv
 ├── makefile
 └── src
     ├── analysis ├──Analysis.R
