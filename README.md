@@ -62,8 +62,9 @@ install.packages("tidyverse")
 install.packages("readr")
 install.packages("data.table")
 install.packages("DescTools")
-install.packages("tinytex")
 install.packages("pandoc")
+install.packages("tinytex")
+tinytex::install_tinytex()
 ```
 
 ### Running the code
