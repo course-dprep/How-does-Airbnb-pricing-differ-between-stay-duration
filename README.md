@@ -148,7 +148,7 @@ A more detailed analysis of these results can be found in the  ../exploration_an
 
 
 
-## 7. About
+## 7. Authors
 
 This project is conducted for the Data Preparation and Workflow Management course at Tilburg University. The members of our team are:
 
